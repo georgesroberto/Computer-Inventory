@@ -1,18 +1,47 @@
 {% extends 'base.html' %}
 
-{% block cmiscontent %}
-
 {% load bootstrap5 %}
 
-    <h2>List Computers</h2>
-    <div class="row">
-        {% for field in form %}
-        <div class="col-12">
-            {% bootstrap_field field %}
-            {{ form.as_p }}
-        </div>
-        {% endfor %}
-        <button>Save</button>
+{% block cimscontent %}
+
+    <div class="table">
+        <p>
+            <h2>Search</h2>
+            {{ search }}
+            <button class="btn btn-info">Search</button>
+        </p>
     </div>
 
-{% endblock cmiscontent %}
+    <br><h2>{{ title }}</h2><br>
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <table class="">
+                <thead>
+                    <th>#</th>
+                    <th>PC Name</th>
+                    <th>MAC Addr</th>
+                    <th>IP Addr</th>
+                    <th>Operating System</th>
+                    <th>Username</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </thead>
+    
+                {%  for instance in queryset %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="#">{{ instance.pc_name }}</a></td>
+                    <td>{{ instance.mac_address }}</td>
+                    <td>{{ instance.ip_address }}</td>
+                    <td>{{ instance.os }}</td>
+                    <td>{{ instance.username }}</td>
+                    <td>{{ instance.location }}</td>
+                    <td><a href="#"><i class="fas fa-trash"></i></a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock cimscontent %}
