@@ -79,3 +79,8 @@ body {
 .bd-mode-toggle .dropdown-menu .active .bi {
   display: block !important;
 }
+
+td, th{
+  padding: 6px;
+  margin: 6px;
+}
