@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block cmiscontent %}
+
+{% load bootstrap5 %}
+
+    <h2>List Computers</h2>
+    <div class="row">
+        {% for field in form %}
+        <div class="col-12">
+            {% bootstrap_field field %}
+            {{ form.as_p }}
+        </div>
+        {% endfor %}
+        <button>Save</button>
+    </div>
+
+{% endblock cmiscontent %}
