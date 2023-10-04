@@ -4,20 +4,31 @@
 
 {% block cimscontent %}
 
-    <div class="table">
-        <p>
-            <h2>Search</h2>
-            {{ search }}
-            <button class="btn btn-info">Search</button>
+
+<div class="alert alert-success">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<div class="bg-body-tertiary p-5 rounded">
+    <form method="post" action="">
+        <h2>Search Computer</h2>
+        {{ queryset }}
+        <input type="submit" class="btn btn-info" value="Search" />
         </p>
-    </div>
+    </form>
 
     <br><h2>{{ title }}</h2><br>
 
     <div class="row">
-        <div class="col-12 text-center">
-            <table class="">
-                <thead>
+        <div class="col-12 text-center table-responsive-md">
+            <table class="table table-bordered border-info nowrap">
+                <thead class="thead-dark">
                     <th>#</th>
                     <th>PC Name</th>
                     <th>MAC Addr</th>
@@ -31,17 +42,17 @@
                 {%  for instance in queryset %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td><a href="#">{{ instance.pc_name }}</a></td>
+                    <td><a href="{% url 'update' instance.id %}">{{ instance.pc_name }}</a></td>
                     <td>{{ instance.mac_address }}</td>
                     <td>{{ instance.ip_address }}</td>
                     <td>{{ instance.os }}</td>
                     <td>{{ instance.username }}</td>
                     <td>{{ instance.location }}</td>
-                    <td><a href="#"><i class="fas fa-trash"></i></a></td>
+                    <td><button class="btn btn-danger"><a href="{% url 'delete' instance.id %}"><i class="fas fa-trash"></i></a></button></td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
-
+</div>
 {% endblock cimscontent %}
