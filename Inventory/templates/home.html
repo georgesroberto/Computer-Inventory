@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block cimscontent %}
 
   <div class="bg-body-tertiary p-5 rounded">
-    <h1>HomePage</h1>
-    <p class="lead">Welcome to my Computer Inventory Management System.</p>
-    <p>This is where we digitize digital records even further</p>
-
+    <h1 class="text-center">Computer Inventory Management System</h1>
+    <img class="" src="{% static 'img/pc.png'%}" alt="bg-image" />
   </div>
 
 {% endblock cimscontent %}
