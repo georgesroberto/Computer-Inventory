@@ -13,8 +13,11 @@
     <title>Computer Inventory</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    
+    <link href="{% static 'js/jquery-3.7.1.min.js/jquery-ui.min.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jquery-3.7.1.min.js/jquery-ui.structure.min.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jquery-3.7.1.min.js/jquery-ui.theme.min.css' %}" rel="stylesheet">
 
     <!-- Favicons -->
     <!-- <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -87,37 +90,39 @@
     
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">CIMS</a>
+        <a class="navbar-brand" href="/#">CIMS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
+              <a class="nav-link active" aria-current="page" href="">Home</a>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="/list/">Computer List</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/list/">View</a>
+              <a class="nav-link" href="/add/">Computer Entry</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/add/">Add</a>
+              <a class="nav-link" href="/other/">Computer History</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/other/">Other</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/admin/">Admin</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login/">Login</a>
-            </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+          <ul class="navbar-nav mb-2 mb-md-0">
+            <li class="nav-item">
+              <a href="/accounts/logout" class="nav-link"><button class="btn btn-danger"><i class="fas fa-exit"></i>{{ user }} | Logout</button></a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="/admin" class="nav-link"><button class="btn btn-primary"><i class="fas fa-enter"></i>Login</button></a>
+            </li>
+            {% endif %}
+          </ul>          
         </div>
       </div>
     </nav>
@@ -129,7 +134,12 @@
       {% endblock cimscontent %}
       
     </main>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}" ></script>
+    
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui-1.13.2/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
 
   </body>
 </html>
