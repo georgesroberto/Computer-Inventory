@@ -5,30 +5,28 @@
 {% load bootstrap5 %}
 
 {% block cimscontent %}
-    <h2>{{ title }}</h2>
 
-    <div class="row">
-        <div class="col-7">
-            <form action="" method="post">
-                {% csrf_token %}
-                <div class="row">
-                    {% for field in form %}
-                    <div class="col-12">
-                        {% bootstrap_field field %}
+    <div class="bg-body-tertiary p-5 rounded">
+        <h2>{{ title }}</h2>
+
+        <div class="row">
+            <div class="col-sm-7">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        {% for field in form %}
+                        <div class="col-12">
+                            {% bootstrap_field field %}
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
-                <button class="btn btn-success">Save</button>
-            </form>
-        </div>
+                    <button class="btn btn-success">Save</button>
+                </form>
+            </div>
 
-        <div class="col-5 pt-10px mt-10px">
-            <div class="col-12"></div><br>
-            <div class="col-12"></div><br>
-            <div class="col-12"></div><br>
-            <div>
-                <img src="{% static 'img/pc.png' %}" alt="computer" style="width:600px">
-            </div>        
+            <div class="col-sm-5 aligncenter">
+                <img src="{% static 'img/pc.png' %}" alt="computer" style="width:100%">       
+            </div>
         </div>
     </div>
 
