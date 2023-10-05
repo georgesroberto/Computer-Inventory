@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Computer
-from .forms import ComputerForm, SearchForm
+from .forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -29,28 +29,41 @@ def add(request):
 
     return render(request, 'add.html/', context)
 
+def add_os(request):
+    title = "Add Operating System"
+    form = AddOsForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        form.instance.os.set(form.cleaned_data['os'])
+        messages.success(request, "OS saved successfully")
+        return redirect('list')
+
+    context = { 
+        "title" : title,
+        "form" : form
+    }
+
+    return render(request, 'os.html/', context)
+
 #READ FORM
 @login_required
-def list(request):#READ FORM 
+def list(request):
     title = "List of Computers"
     form = SearchForm()
-    queryset = Computer.objects.all()
+    items = Computer.objects.all()
 
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
-            pc_name = form.cleaned_data.get('pc_name')
-            username = form.cleaned_data.get('username')
-
-            if pc_name:
-                queryset = queryset.filter(pc_name__icontains=pc_name)
-            if username:
-                queryset = queryset.filter(username__icontains=username)
+            items = Computer.objects.filter(
+                pc_name__icontains=form['pc_name'].value(),
+                username__icontains=form['username'].value())
 
     context = {
-        "title": title,
-        "form": form,
-        "queryset": queryset,
+        'title': title,
+        'form' : form,
+        'items' : items
     }
 
     return render(request, 'list.html', context)
@@ -59,12 +72,13 @@ def list(request):#READ FORM
 @login_required
 def update(request, pk):#UPDATE FORM
     item = get_object_or_404(Computer, id=pk)
-    form = ComputerForm(instance=item)
+    form = UpdateForm(instance=item)
     
     if request.method == 'POST':
-        form = ComputerForm(request.POST, instance=item)
+        form = UpdateForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
+            form.instance.os.set(form.cleaned_data['os'])
             return redirect('list')
         
     context = {
@@ -80,7 +94,7 @@ def delete(request, pk):#DELTE FORM
 
     if request.method == 'POST':
         item.delete()
+        messages.success(request, "Item deleted successfully")
         return redirect('list')
-    
     
     return render(request, 'delete.html/')
