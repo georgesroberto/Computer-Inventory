@@ -1,7 +1,13 @@
+* {
+  border: border-box;
+}
+
+
 body {
-    min-height: 75rem;
-    padding-top: 4.5rem;
-  }
+  min-height: 75rem;
+  padding-top: 4.5rem;
+  background-image: url("../img/bg.jpg");
+}
   
 .bd-placeholder-img {
   font-size: 1.125rem;

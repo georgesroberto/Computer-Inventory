@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block cimscontent %}
+
+  <div class="bg-body-tertiary p-5 rounded">
+    <h4>{{ title }}</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-info" value="Save" />
+    </form>
+  </div>
+
+{% endblock cimscontent %}

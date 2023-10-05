@@ -17,8 +17,9 @@
 
 <div class="bg-body-tertiary p-5 rounded">
     <form method="post" action="">
+        {% csrf_token %}
         <h2>Search Computer</h2>
-        {{ queryset }}
+        {{ form }}
         <input type="submit" class="btn btn-info" value="Search" />
         </p>
     </form>
@@ -39,13 +40,13 @@
                     <th>Action</th>
                 </thead>
     
-                {%  for instance in queryset %}
+                {%  for instance in items %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td><a href="{% url 'update' instance.id %}">{{ instance.pc_name }}</a></td>
                     <td>{{ instance.mac_address }}</td>
                     <td>{{ instance.ip_address }}</td>
-                    <td>{{ instance.os }}</td>
+                    <td>{{ instance.os.all }} </td>
                     <td>{{ instance.username }}</td>
                     <td>{{ instance.location }}</td>
                     <td><button class="btn btn-danger"><a href="{% url 'delete' instance.id %}"><i class="fas fa-trash"></i></a></button></td>
