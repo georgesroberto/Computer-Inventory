@@ -30,22 +30,28 @@ def add(request):
     return render(request, 'add.html/', context)
 
 def add_os(request):
-    title = "Add Operating System"
-    form = AddOsForm(request.POST or None)
+    if request.method == 'POST':
+        form = AddOsForm(request.POST)
 
-    if form.is_valid():
-        form.save()
-        form.instance.os.set(form.cleaned_data['os'])
-        messages.success(request, "OS saved successfully")
-        return redirect('list')
+        if form.is_valid():
+            os_choices = form.cleaned_data['os_system']
+            os_choices_string = ''.join(os_choices)
 
-    context = { 
-        "title" : title,
-        "form" : form
+            # Create an Os_Choice instance with the combined string
+            os_choice_instance = Os_Choice(os_system=os_choices_string)
+            os_choice_instance.save()
+
+            messages.success(request, "OS saved successfully")
+            return redirect('list')
+    else:
+        form = AddOsForm()
+
+    context = {
+        "title": "Add Operating System",
+        "form": form
     }
 
-    return render(request, 'os.html/', context)
-
+    return render(request, 'os.html', context)
 #READ FORM
 @login_required
 def list(request):
