@@ -27,7 +27,7 @@ class ComputerForm(forms.ModelForm):
 class UpdateForm(forms.ModelForm):
     class Meta:
         model = Computer
-        fields = ['pc_name','mac_address','os','username','location', 'purchase_date']
+        fields = ['pc_name','mac_address','os','username','location', 'update_date']
 
 class SearchForm(forms.ModelForm):
     csv_export = forms.BooleanField(required = False)
