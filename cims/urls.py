@@ -16,7 +16,7 @@ Including another URLconf
 """
 from Inventory.views import *
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('add/', add, name="add"),
     path('add_os/', add_os, name="add"),
     path('update/<str:pk>/', update, name="update"),
-    path('delete/<str:pk>/', delete, name="delete"),  
-    path('account/login/', delete, name="login"), 
+    path('delete/<str:pk>/', delete, name="delete"),
+    path('history/', history, name="history"),  
+    path('accounts/', include('registration.backends.default.urls')), 
 ]
