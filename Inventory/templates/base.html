@@ -86,8 +86,7 @@
         </li>
       </ul>
     </div>
-
-    
+  
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="/#">CIMS</a>
@@ -101,14 +100,17 @@
             </li>
             {% if request.user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="/list/">Computer List</a>
+              <a class="nav-link" href="/list">Computer List</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/add/">Computer Entry</a>
+              <a class="nav-link" href="/add">Computer Entry</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/add_os/">Add OS</a>
+              <a class="nav-link" href="/add_os">Add OS</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/history">Computer history</a>
+              </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/admin/">Admin</a>
             </li>
@@ -119,7 +121,7 @@
             </li>
             {% else %}
             <li class="nav-item">
-              <a href="/admin" class="nav-link"><button class="btn btn-primary"><i class="fas fa-enter"></i>Login</button></a>
+              <a href="/accounts/login" class="nav-link"><button class="btn btn-primary"><i class="fas fa-enter"></i>Login</button></a>
             </li>
             {% endif %}
           </ul>          
@@ -130,6 +132,14 @@
     <main class="container">
 
       {% block cimscontent %}
+
+      <div class="bg-body-tertiary p-5 rounded">
+        {% block title %}
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+      </div>
 
       {% endblock cimscontent %}
       
