@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Computer
+from .models import *
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -29,6 +29,7 @@ def add(request):
 
     return render(request, 'add.html/', context)
 
+#CREATE OS FORM
 def add_os(request):
     if request.method == 'POST':
         form = AddOsForm(request.POST)
@@ -104,3 +105,13 @@ def delete(request, pk):#DELTE FORM
         return redirect('list')
     
     return render(request, 'delete.html/')
+
+#HISTORY FORM
+def history(request):
+    title = 'Update history'
+    items = ComputerHistory.objects.all()
+    context = {
+       "title": title,
+       "items": items,
+    }
+    return render(request, "list.html",context)
