@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import *
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import csv
+
 
 # Create your views here.
 def home(request):
@@ -10,6 +12,7 @@ def home(request):
     context = {"title" : title}
 
     return render(request, 'home.html/', context)
+
 
 #CREATE FORM
 @login_required
@@ -29,6 +32,7 @@ def add(request):
 
     return render(request, 'add.html/', context)
 
+
 #CREATE OS FORM
 def add_os(request):
     if request.method == 'POST':
@@ -37,8 +41,6 @@ def add_os(request):
         if form.is_valid():
             os_choices = form.cleaned_data['os_system']
             os_choices_string = ''.join(os_choices)
-
-            # Create an Os_Choice instance with the combined string
             os_choice_instance = Os_Choice(os_system=os_choices_string)
             os_choice_instance.save()
 
@@ -53,6 +55,8 @@ def add_os(request):
     }
 
     return render(request, 'os.html', context)
+
+
 #READ FORM
 @login_required
 def list(request):
@@ -67,6 +71,17 @@ def list(request):
                 pc_name__icontains=form['pc_name'].value(),
                 username__icontains=form['username'].value())
 
+    itemList = items
+    if form['csv_export'].value() == True:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="Computer List.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['PC Name', 'MAC Addr', 'IP Addr', 'OS', 'Username'])
+        instance = itemList
+        for pc in instance:
+            writer.writerow([pc.pc_name, pc.mac_address, pc.ip_address, pc.os, pc.username])
+        return response
+        
     context = {
         'title': title,
         'form' : form,
@@ -74,6 +89,7 @@ def list(request):
     }
 
     return render(request, 'list.html', context)
+
 
 #UPDATE FORM
 @login_required
@@ -94,6 +110,7 @@ def update(request, pk):#UPDATE FORM
 
     return render(request, 'add.html/', context)
 
+
 #DELETE FORM
 @login_required
 def delete(request, pk):#DELTE FORM
@@ -105,6 +122,7 @@ def delete(request, pk):#DELTE FORM
         return redirect('list')
     
     return render(request, 'delete.html/')
+
 
 #HISTORY FORM
 def history(request):
