@@ -24,16 +24,19 @@ class ComputerForm(forms.ModelForm):
                 raise forms.ValidationError(' IP_address already exist' )
         return ip_address
     
+
 class UpdateForm(forms.ModelForm):
     class Meta:
         model = Computer
         fields = ['pc_name','mac_address','ip_address','os','username','location', 'update_date']
+
 
 class SearchForm(forms.ModelForm):
     csv_export = forms.BooleanField(required = False)
     class Meta:
         model = Computer
         fields = ['pc_name', 'username', 'csv_export']
+
 
 class AddOsForm(forms.ModelForm):
     class Meta:
