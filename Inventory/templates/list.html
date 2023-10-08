@@ -37,19 +37,24 @@
                     <th>Operating System</th>
                     <th>Username</th>
                     <th>Location</th>
-                    <th>Action</th>
+                    <th colspan="2">Action</th>
                 </thead>
     
                 {%  for instance in items %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td><a href="{% url 'update' instance.id %}">{{ instance.pc_name }}</a></td>
+                    <td>{{ instance.pc_name }}</td>
                     <td>{{ instance.mac_address }}</td>
                     <td>{{ instance.ip_address }}</td>
                     <td>{{ instance.os.all }} </td>
                     <td>{{ instance.username }}</td>
                     <td>{{ instance.location }}</td>
-                    <td><button class="btn btn-danger"><a href="{% url 'delete' instance.id %}"><i class="fas fa-trash"></i></a></button></td>
+                    <td>
+                        <a href="{% url 'update' instance.id %}">Update</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete' instance.id %}">Delete</a></button>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
