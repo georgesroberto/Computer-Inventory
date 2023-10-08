@@ -10,11 +10,11 @@ class Os_Choice(models.Model):
 
 # Create your models here.
 class Computer(models.Model):
-    pc_name = models.CharField(max_length=50, blank=False, null=True) 
+    pc_name = models.CharField(max_length=50, blank=True, null=True) 
     mac_address = models.CharField(max_length=50, blank=False, null=True) 
     ip_address = models.CharField(max_length=50, blank=False, null=True)
     os = models.ManyToManyField(Os_Choice, blank=False)
-    username = models.CharField(max_length=50, blank=False, null=True)
+    username = models.CharField(max_length=50, blank=True, null=True)
     location = models.CharField(max_length=50, blank=False, null=True)
     update_date = models.DateField("Update Date (mm/dd/yyyy)",auto_now_add=False, auto_now=False, blank=True, null=True)
     purchase_date = models.DateField()
