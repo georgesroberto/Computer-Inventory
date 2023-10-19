@@ -127,9 +127,11 @@ def delete(request, pk):#DELTE FORM
 #HISTORY FORM
 def history(request):
     title = 'Update history'
+    form = SearchForm()
     items = ComputerHistory.objects.all()
     context = {
        "title": title,
        "items": items,
+       "form":form
     }
     return render(request, "list.html",context)
